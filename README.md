@@ -1,54 +1,81 @@
 # Smart Skill Map System
 
-A comprehensive, AI-driven career pathing and assessment platform.
+A comprehensive AI-driven career pathing and assessment platform that helps users explore career paths, assess their skills, and receive personalized recommendations.
 
 ## Prerequisites
-Before running the application, make sure you have the following installed on your machine:
-1. **Java** (JDK 17 or higher)
-2. **Maven** (Apache Maven)
-3. **MySQL Server** & **MySQL Workbench**
+
+Before running the application, ensure the following software is installed:
+
+* Java (JDK 17 or later)
+* Apache Maven
+* MySQL Server
+* MySQL Workbench
 
 ## Database Setup
 
-1. Open **MySQL Workbench** and connect to your local database using:
-   - Username: `root`
-   - Password: `root25`
-   *(If your password is different, update the `application.properties` file in `src/main/resources/` accordingly).*
+1. Open MySQL Workbench and connect to your local MySQL server.
+2. Create the database:
 
-2. Create the initial database:
-   ```sql
-   CREATE DATABASE IF NOT EXISTS smartskillmap;
-   ```
+```sql
+CREATE DATABASE IF NOT EXISTS smartskillmap;
+```
 
-3. Open the file `database/reset_and_seed_final.sql` in MySQL Workbench.
-4. Execute the entire script (click the Lightning Bolt icon). This will create all necessary tables and seed the system with 29 career paths and assessments.
+3. Open the SQL script:
+
+```
+database/reset_and_seed_final.sql
+```
+
+4. Execute the entire script to:
+
+   * Create all required database tables
+   * Insert sample data
+   * Seed career paths and assessments
+
+> **Note:** Update the database configuration in `src/main/resources/application.properties` with your own MySQL username and password before running the application.
 
 ## Running the Application
 
-1. Open your terminal (PowerShell or Command Prompt) and navigate to the root directory of the project (`SmartSkillMap_Master`).
-2. Run the following Maven command to start the Spring Boot server:
+Open a terminal in the project root directory and run:
 
-   ```bash
-   mvn spring-boot:run
-   ```
+```bash
+mvn spring-boot:run
+```
 
-3. Wait until you see a message similar to: `Tomcat started on port 8081`. 
+Wait until you see a message similar to:
 
-## Accessing the Application
+```
+Tomcat started on port 8081
+```
 
-Once the server is running, open your web browser and go to:
-[http://localhost:8081/](http://localhost:8081/)
+## Access the Application
 
-### Common Issues
+Open your browser and visit:
 
-**Port Already in Use Error?**
-If you try to run the server and it immediately crashes stating `Port 8081 is already in use`, you must kill the old hidden process:
-- **In PowerShell (Recommended):**
-  ```powershell
-  Stop-Process -Id (Get-NetTCPConnection -LocalPort 8081).OwningProcess -Force
-  ```
-- **In Command Prompt (CMD):**
-  ```cmd
-  for /f "tokens=5" %a in ('netstat -aon ^| findstr :8081') do taskkill /f /pid %a
-  ```
-Then try running `mvn spring-boot:run` again.
+```
+http://localhost:8081/
+```
+
+## Troubleshooting
+
+### Port 8081 Already in Use
+
+If the application fails to start because port **8081** is already in use, terminate the existing process.
+
+**PowerShell**
+
+```powershell
+Stop-Process -Id (Get-NetTCPConnection -LocalPort 8081).OwningProcess -Force
+```
+
+**Command Prompt (CMD)**
+
+```cmd
+for /f "tokens=5" %a in ('netstat -aon ^| findstr :8081') do taskkill /f /pid %a
+```
+
+Then restart the application:
+
+```bash
+mvn spring-boot:run
+```
